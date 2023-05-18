@@ -30,6 +30,22 @@
                              styleClass="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
             </div>
 
+            <div class="field">
+                <p:outputLabel for="@next" value="Surname"/>
+                <p:inputText id="surname" value="#{registrationForm.surname}"
+                             styleClass="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
+            </div>
+
+            <div class="field">
+                <p:outputLabel for="@next" value="e-mail"/>
+                <p:inputText id="email" value="#{registrationForm.email}"
+                             styleClass="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
+            </div>
+
+            <div class="flex justify-content-left" jsf:rendered="#{!registrationForm.registered}">
+                <p>Please fill in all fields with an asterisk * </p>
+            </div>
+
             <div class="flex justify-content-end">
                 <p:commandButton id="reset" action="#{registrationForm.reset}" value="Start over"
                                  process="@this" update="@form"
