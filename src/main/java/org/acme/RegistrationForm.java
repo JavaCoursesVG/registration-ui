@@ -67,10 +67,6 @@ public class RegistrationForm implements Serializable {
         registered = false;
     }
 
-    public ArrayList<Registration> getAll() {
-        return registrationClient.getAll();
-    }
-
     public void loadRecords() {
         allRegistrations = registrationClient.getAll();
     }
