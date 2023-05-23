@@ -6,6 +6,7 @@ public class RegistrationDTO implements Serializable {
     private String name;
     private String surname;
     private String email;
+    private Boolean approved;
 
     public String getName() {
         return name;
@@ -30,4 +31,8 @@ public class RegistrationDTO implements Serializable {
     public void setEmail(String name) {
         this.email = name;
     }
+
+    public boolean isApproved() { return approved; }
+
+    public void setApproved(Boolean approved) { this.approved = approved; }
 }

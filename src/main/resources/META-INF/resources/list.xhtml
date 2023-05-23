@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"
+      lang="en">
+<h:head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <title>
+        <ui:insert name="title">List</ui:insert>
+    </title>
+    <h:outputStylesheet name="/webjars/primeflex/3.3.0/primeflex.min.css"/>
+    <h:outputStylesheet name="/webjars/primeflex/3.3.0/themes/saga-blue.css"/>
+    <ui:insert name="head"/>
+</h:head>
+<h:body>
+    <h:form id="registrationForm">
+        <p:panel id="panel" header="Administration panel">
+            <div class="flex justify-content-end">
+                <p:commandButton id="SendApproval" action="#{registrationForm.sendApproval}" value="Send approval"
+                                 process="@form" update="@form"
+                                 disabled="#{registrationForm.approved}"
+                                 styleClass="m-2 ui-button-secondary"/>
+
+                <p:commandButton id="LoadRecords" action="#{registrationForm.loadRecords}" value="Load all records"
+                                 process="@form" update="@form"
+                                 disabled="#{registrationForm.approved}"
+                                 styleClass="m-2"/>
+            </div>
+            <p:dataTable var="registrations" value="#{registrationForm.allRegistrations}">
+
+                <p:column headerText="Id">
+                    <h:outputText value="#{registrations.id}"/>
+                </p:column>
+
+                <p:column headerText="Name">
+                    <h:outputText value="#{registrations.name}"/>
+                </p:column>
+
+                <p:column headerText="Surname">
+                    <h:outputText value="#{registrations.surname}"/>
+                </p:column>
+
+                <p:column headerText="e-mail">
+                    <h:outputText value="#{registrations.email}"/>
+                </p:column>
+
+                <p:column headerText="Approved">
+                    <h:outputText value="#{registrations.approved}"/>
+                </p:column>
+            </p:dataTable>
+        </p:panel>
+    </h:form>
+</h:body>
+</html>
