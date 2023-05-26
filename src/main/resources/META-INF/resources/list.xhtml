@@ -18,41 +18,41 @@
 </h:head>
 <h:body>
     <h:form id="registrationForm">
-        <p:panel id="panel" header="Administration panel">
+        <p:panel id="administrationPanel" header="Administration panel">
             <div class="flex justify-content-end">
-                <p:commandButton id="SendApproval" action="#{registrationForm.sendApproval}" value="Send approval"
+                <p:commandButton id="SendApproval" action="#{listForm.sendApproval}" value="Send approval"
                                  process="@form" update="@form"
-                                 disabled="#{registrationForm.approved}"
                                  styleClass="m-2 ui-button-secondary"/>
 
-                <p:commandButton id="LoadRecords" action="#{registrationForm.loadRecords}" value="Load all records"
+                <p:commandButton id="LoadRecords" action="#{listForm.loadRecords}" value="Load all records"
                                  process="@form" update="@form"
-                                 disabled="#{registrationForm.approved}"
                                  styleClass="m-2"/>
             </div>
-            <p:dataTable var="registrations" value="#{registrationForm.allRegistrations}">
+        </p:panel>
+        <p:dataTable var="registration" value="#{listForm.allRegistrations}"
+                     scrollable="true" scrollHeight="600"
+                     paginator="true" rows="50">
 
                 <p:column headerText="Id">
-                    <h:outputText value="#{registrations.id}"/>
+                    <h:outputText value="#{registration.id}"/>
                 </p:column>
 
                 <p:column headerText="Name">
-                    <h:outputText value="#{registrations.name}"/>
+                    <h:outputText value="#{registration.name}"/>
                 </p:column>
 
                 <p:column headerText="Surname">
-                    <h:outputText value="#{registrations.surname}"/>
+                    <h:outputText value="#{registration.surname}"/>
                 </p:column>
 
                 <p:column headerText="e-mail">
-                    <h:outputText value="#{registrations.email}"/>
+                    <h:outputText value="#{registration.email}"/>
                 </p:column>
 
                 <p:column headerText="Approved">
-                    <h:outputText value="#{registrations.approved}"/>
+                    <h:outputText value="#{registration.approved}"/>
                 </p:column>
             </p:dataTable>
-        </p:panel>
     </h:form>
 </h:body>
 </html>
