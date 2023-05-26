@@ -26,6 +26,7 @@ public class ListForm implements Serializable {
     Mailer mailer;
 
     private ArrayList<Registration> allRegistrations = new ArrayList<Registration>();
+    private ArrayList<Registration> selectedRegistrations = new ArrayList<>();
 
     public void loadRecords() {
         allRegistrations = registrationClient.getAll();
@@ -35,6 +36,21 @@ public class ListForm implements Serializable {
         allRegistrations.forEach((n) -> {
             sendEmail((n.getEmail()));
             n.setApproved(true);
+        });
+    }
+
+    public void sendApprovalToSelected() {
+
+        selectedRegistrations.forEach((n) -> {
+            RegistrationDTO reg = new RegistrationDTO();
+            sendEmail((n.getEmail()));
+            n.setApproved(true);
+            allRegistrations.set((int) n.getId() - 1, n);
+            reg.setName(n.getName());
+            reg.setSurname(n.getSurname());
+            reg.setEmail(n.getEmail());
+            reg.setApproved(n.getApproved());
+            registrationClient.updateRegistrations(reg);
         });
     }
 
@@ -54,5 +70,13 @@ public class ListForm implements Serializable {
 
     public void setAllRegistrations(ArrayList<Registration> allRegistrations) {
         this.allRegistrations = allRegistrations;
+    }
+
+    public ArrayList<Registration> getSelectedRegistrations() {
+        return selectedRegistrations;
+    }
+
+    public void setSelectedRegistrations(ArrayList<Registration> selectedRegistrations) {
+        this.selectedRegistrations = selectedRegistrations;
     }
 }

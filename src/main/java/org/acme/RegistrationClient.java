@@ -18,4 +18,11 @@ public interface RegistrationClient {
     @GET
     @Path("/get_registrations")
     ArrayList<Registration> getAll();
+
+    @PUT
+    @Path("/update_registrations")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public void updateRegistrations(RegistrationDTO registration);
+
 }
