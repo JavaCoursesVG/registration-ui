@@ -32,7 +32,11 @@ public class RegistrationDTO implements Serializable {
         this.email = name;
     }
 
-    public boolean isApproved() { return approved; }
+    public boolean isApproved() {
+        return approved;
+    }
 
-    public void setApproved(Boolean approved) { this.approved = approved; }
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
 }
