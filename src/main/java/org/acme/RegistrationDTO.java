@@ -6,7 +6,7 @@ public class RegistrationDTO implements Serializable {
     private String name;
     private String surname;
     private String email;
-    private Boolean approved;
+    private boolean approved;
 
     public String getName() {
         return name;
