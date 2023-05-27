@@ -25,33 +25,34 @@ public class ListForm implements Serializable {
     @Inject
     Mailer mailer;
 
-    private ArrayList<Registration> allRegistrations = new ArrayList<Registration>();
-    private ArrayList<Registration> selectedRegistrations = new ArrayList<>();
+    private ArrayList<Registration> registrationsList = new ArrayList<Registration>();
+    private ArrayList<Registration> selectedList = new ArrayList<>();
 
     public void loadRecords() {
-        allRegistrations = registrationClient.getAll();
+        registrationsList = registrationClient.getAll();
     }
 
     public void sendApproval() {
-        allRegistrations.forEach((n) -> {
+        registrationsList.forEach((n) -> {
+            Registration reg = new Registration();
             sendEmail((n.getEmail()));
-            n.setApproved(true);
+            reg.setId(n.getId());
+            reg.setApproved(true);
+            registrationClient.updateRegistrations(reg);
         });
+        loadRecords();
     }
 
     public void sendApprovalToSelected() {
 
-        selectedRegistrations.forEach((n) -> {
-            RegistrationDTO reg = new RegistrationDTO();
+        selectedList.forEach((n) -> {
+            Registration reg = new Registration();
             sendEmail((n.getEmail()));
-            n.setApproved(true);
-            allRegistrations.set((int) n.getId() - 1, n);
-            reg.setName(n.getName());
-            reg.setSurname(n.getSurname());
-            reg.setEmail(n.getEmail());
-            reg.setApproved(n.getApproved());
+            reg.setId(n.getId());
+            reg.setApproved(true);
             registrationClient.updateRegistrations(reg);
         });
+        loadRecords();
     }
 
     public void sendEmail(String email) {
@@ -64,19 +65,19 @@ public class ListForm implements Serializable {
         );
     }
 
-    public ArrayList<Registration> getAllRegistrations() {
-        return allRegistrations;
+    public ArrayList<Registration> getRegistrationsList() {
+        return registrationsList;
     }
 
-    public void setAllRegistrations(ArrayList<Registration> allRegistrations) {
-        this.allRegistrations = allRegistrations;
+    public void setRegistrationsList(ArrayList<Registration> registrationsList) {
+        this.registrationsList = registrationsList;
     }
 
-    public ArrayList<Registration> getSelectedRegistrations() {
-        return selectedRegistrations;
+    public ArrayList<Registration> getSelectedList() {
+        return selectedList;
     }
 
-    public void setSelectedRegistrations(ArrayList<Registration> selectedRegistrations) {
-        this.selectedRegistrations = selectedRegistrations;
+    public void setSelectedList(ArrayList<Registration> selectedList) {
+        this.selectedList = selectedList;
     }
 }

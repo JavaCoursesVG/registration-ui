@@ -5,7 +5,7 @@ public class Registration {
     private String name;
     private String surname;
     private String email;
-    private Boolean approved;
+    private boolean approved;
 
     public long getId() {
         return id;
@@ -39,11 +39,11 @@ public class Registration {
         this.email = email;
     }
 
-    public Boolean getApproved() {
+    public boolean isApproved() {
         return approved;
     }
 
-    public void setApproved(Boolean approved) {
+    public void setApproved(boolean approved) {
         this.approved = approved;
     }
 }

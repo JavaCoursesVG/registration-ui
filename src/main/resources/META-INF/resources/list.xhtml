@@ -12,6 +12,7 @@
     <title>
         <ui:insert name="title">List</ui:insert>
     </title>
+    #{listForm.loadRecords()}
     <h:outputStylesheet name="/webjars/primeflex/3.3.0/primeflex.min.css"/>
     <h:outputStylesheet name="/webjars/primeflex/3.3.0/themes/saga-blue.css"/>
     <ui:insert name="head"/>
@@ -22,47 +23,58 @@
             <div class="flex justify-content-end">
                 <p:commandButton id="LoadRecords" action="#{listForm.loadRecords}" value="Load all records"
                                  process="@form" update="@form"
-                                 styleClass="m-2 ui-button-primary"/>
-                <p:divider layout="vertical">
-                </p:divider>
+                                 rendered="false"
+                                 styleClass="m-2 ui-button-secondary"/>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"/>
+                </p:confirmDialog>
+                <p:divider layout="vertical" rendered="true"> </p:divider>
                 <p:commandButton id="SendApprovalToSelected" action="#{listForm.sendApprovalToSelected}"
                                  value="Send approval to selected"
                                  process="@form" update="@form"
                                  styleClass="m-2 ui-button-primary"/>
                 <p:commandButton id="SendApprovalToAll" action="#{listForm.sendApproval}" value="Send approval to all"
                                  process="@form" update="@form"
-                                 styleClass="m-2 ui-button-danger"/>
+                                 styleClass="m-2 ui-button-danger">
+                    <p:confirm header="Confirmation" message="Are you sure you want to confirm all registrations?"
+                               icon="pi pi-exclamation-triangle"/>
+                </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"/>
+                </p:confirmDialog>
             </div>
         </p:panel>
 
-        <p:dataTable id="dtRegistrations" var="registration" value="#{listForm.allRegistrations}"
+        <p:dataTable id="dtRegistrations" var="registration" value="#{listForm.registrationsList}"
                      scrollable="true" scrollHeight="600"
-                     selection="#{listForm.selectedRegistrations}" rowKey="#{registration.id}"
+                     selection="#{listForm.selectedList}" rowKey="#{registration.id}"
                      paginator="true" rows="50">
 
             <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 
-            <p:column headerText="Id" visible="true">
+            <p:column headerText="Id" sortBy="#{registration.id}" visible="true">
                 <h:outputText value="#{registration.id}"/>
             </p:column>
 
-            <p:column headerText="Name">
+            <p:column headerText="Name" sortBy="#{registration.name}">
                 <h:outputText value="#{registration.name}"/>
             </p:column>
 
-            <p:column headerText="Surname">
+            <p:column headerText="Surname" sortBy="#{registration.surname}">
                 <h:outputText value="#{registration.surname}"/>
             </p:column>
 
-            <p:column headerText="e-mail">
+            <p:column headerText="e-mail" sortBy="#{registration.email}">
                 <h:outputText value="#{registration.email}"/>
             </p:column>
 
-            <p:column headerText="Approved" visible="true">
+            <p:column headerText="Approved" sortBy="#{registration.approved}" visible="false">
                 <h:outputText value="#{registration.approved}"/>
             </p:column>
 
-            <p:column headerText="Approved tag">
+            <p:column headerText="Approval">
                 <p:tag styleClass="mr-2" style="font-size:16px"
                        rounded="false" severity="success" value="Info"
                        rendered="#{registration.approved}">Sent
